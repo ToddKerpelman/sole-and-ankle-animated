@@ -1,13 +1,13 @@
-import React from 'react';
-import styled from 'styled-components/macro';
+import React from "react";
+import styled from "styled-components/macro";
 
-import { QUERIES, WEIGHTS } from '../../constants';
-import Logo from '../Logo';
-import Icon from '../Icon';
-import UnstyledButton from '../UnstyledButton';
-import SuperHeader from '../SuperHeader';
-import MobileMenu from '../MobileMenu';
-import VisuallyHidden from '../VisuallyHidden';
+import { QUERIES, WEIGHTS } from "../../constants";
+import Logo from "../Logo";
+import Icon from "../Icon";
+import UnstyledButton from "../UnstyledButton";
+import SuperHeader from "../SuperHeader";
+import MobileMenu from "../MobileMenu";
+import VisuallyHidden from "../VisuallyHidden";
 
 const Header = () => {
   const [showMobileMenu, setShowMobileMenu] = React.useState(false);
@@ -20,12 +20,48 @@ const Header = () => {
           <Logo />
         </LogoWrapper>
         <DesktopNav>
-          <NavLink href="/sale">Sale</NavLink>
-          <NavLink href="/new">New&nbsp;Releases</NavLink>
-          <NavLink href="/men">Men</NavLink>
-          <NavLink href="/women">Women</NavLink>
-          <NavLink href="/kids">Kids</NavLink>
-          <NavLink href="/collections">Collections</NavLink>
+          <NavLink>
+            <a id="topLink" href="/sale">
+              Sale
+            </a>
+            <a id="bottomLink" href="/sale">
+              Sale
+            </a>
+          </NavLink>
+          <NavLink>
+            <a id="topLink" href="/new">
+              New&nbsp;Releases
+            </a>
+            <a id="bottomLink" href="/new">
+              New&nbsp;Releases
+            </a>
+          </NavLink>
+          <NavLink>
+            <a id="topLink" href="/men">
+              Men
+            </a>
+            <a id="bottomLink" href="/men">
+              Men
+            </a>
+          </NavLink>
+          <NavLink>
+            <a id="topLink" href="/women">
+              Women
+            </a>
+            <a id="bottomLink" href="/women">
+              Women
+            </a>
+          </NavLink>
+          <NavLinkAlt>
+            <a id="topLink" href="/kids">
+              Kids
+            </a>
+          </NavLinkAlt>
+          <NavLinkAlt>
+            <a id="topLink" href="/collections">
+              Collections
+            </a>
+          </NavLinkAlt>
         </DesktopNav>
         <MobileActions>
           <ShoppingBagButton>
@@ -114,15 +150,95 @@ const Filler = styled.div`
   }
 `;
 
-const NavLink = styled.a`
-  font-size: 1.125rem;
-  text-transform: uppercase;
-  text-decoration: none;
-  color: var(--color-gray-900);
-  font-weight: ${WEIGHTS.medium};
+const NavLinkAlt = styled.div`
+  position: relative;
 
-  &:first-of-type {
+  a {
+    font-size: 1.125rem;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--color-gray-900);
+    transition: color 250ms ease;
+  }
+
+  #topLink {
+    font-weight: ${WEIGHTS.medium};
+    transition: color 250ms ease;
+  }
+
+  &:hover #topLink {
+    color: var(--color-primary);
+  }
+
+  #topLink::before,
+  #topLink::after {
+    position: absolute;
+    left: 0;
+    content: "";
+    width: 100%;
+    height: 2px;
+    opacity: 0;
+    background: var(--color-primary);
+    background-color: var(--color-primary);
+    transition: transform 250ms ease, opacity 150ms ease;
+    pointer-events: none; // Avoids the jittering on hover.
+  }
+
+  #topLink::before {
+    transform: translateY(-20px);
+    top: 0;
+  }
+
+  #topLink::after {
+    transform: translateY(20px);
+    bottom: 0;
+  }
+
+  &:hover #topLink::before {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+
+  &:hover #topLink::after {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+`;
+
+const NavLink = styled.div`
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  max-height: 24px;
+
+  &:first-of-type a {
     color: var(--color-secondary);
+  }
+
+  a {
+    font-size: 1.125rem;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--color-gray-900);
+    transition: transform 150ms ease;
+  }
+
+  #topLink {
+    font-weight: ${WEIGHTS.medium};
+  }
+
+  #bottomLink {
+    font-weight: ${WEIGHTS.bold};
+  }
+
+  &:hover #topLink {
+    transform: translateY(-100%);
+    transition: transform 150ms ease;
+  }
+
+  &:hover #bottomLink {
+    transform: translateY(-100%);
+    transition: transform 150ms ease;
   }
 `;
 
