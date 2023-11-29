@@ -1,9 +1,9 @@
-import React from 'react';
-import styled from 'styled-components/macro';
+import React from "react";
+import styled from "styled-components/macro";
 
-import { WEIGHTS } from '../../constants';
-import { formatPrice, pluralize, isNewShoe } from '../../utils';
-import Spacer from '../Spacer';
+import { WEIGHTS } from "../../constants";
+import { formatPrice, pluralize, isNewShoe } from "../../utils";
+import Spacer from "../Spacer";
 
 const ShoeCard = ({
   slug,
@@ -35,10 +35,12 @@ const ShoeCard = ({
     <Link href={`/shoe/${slug}`}>
       <Wrapper>
         <ImageWrapper>
-          <Image alt="" src={imageSrc} />
-          {variant === 'on-sale' && <SaleFlag>Sale</SaleFlag>}
-          {variant === 'new-release' && (
-            <NewFlag>Just released!</NewFlag>
+          <JustShoeWrapper>
+            <Image alt="" src={imageSrc} />
+          </JustShoeWrapper>
+          {variant === "on-sale" && <SaleFlag id="saleFlagTag">Sale</SaleFlag>}
+          {variant === "new-release" && (
+            <NewFlag id="newFlagTag">Just released!</NewFlag>
           )}
         </ImageWrapper>
         <Spacer size={12} />
@@ -46,20 +48,18 @@ const ShoeCard = ({
           <Name>{name}</Name>
           <Price
             style={{
-              '--color':
-                variant === 'on-sale'
-                  ? 'var(--color-gray-700)'
-                  : undefined,
-              '--text-decoration':
-                variant === 'on-sale' ? 'line-through' : undefined,
+              "--color":
+                variant === "on-sale" ? "var(--color-gray-700)" : undefined,
+              "--text-decoration":
+                variant === "on-sale" ? "line-through" : undefined,
             }}
           >
             {formatPrice(price)}
           </Price>
         </Row>
         <Row>
-          <ColorInfo>{pluralize('Color', numOfColors)}</ColorInfo>
-          {variant === 'on-sale' ? (
+          <ColorInfo>{pluralize("Color", numOfColors)}</ColorInfo>
+          {variant === "on-sale" ? (
             <SalePrice>{formatPrice(salePrice)}</SalePrice>
           ) : undefined}
         </Row>
@@ -76,12 +76,59 @@ const Link = styled.a`
 const Wrapper = styled.article``;
 
 const ImageWrapper = styled.div`
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
   position: relative;
+
+  &:hover #newFlagTag {
+    transform: rotate(3deg) translateX(2px) translateY(-2px) scale(1.05);
+    // There's probably a way to animate this in with a new layer, yeah?
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    transition: transform 250ms ease;
+  }
+
+  #newFlagTag {
+    transition: transform 250ms ease;
+  }
+
+  &:hover #saleFlagTag {
+    animation: pulse 1s ease-in-out infinite;
+  }
+`;
+const JustShoeWrapper = styled.div`
+  overflow: hidden;
+  border-radius: 16px 16px 4px 4px;
 `;
 
 const Image = styled.img`
+  display: block;
   width: 100%;
-  border-radius: 16px 16px 4px 4px;
+  max-width: 100%;
+  transition: transform 500ms, filter 1250ms;
+  transform-origin: 50% 65%;
+  will-change: transform;
+  // Looks like you'd actually do this with
+  // ${Link}:hover & {}
+  // But I don't know how the heck I was expected to remember that
+
+  @media (prefers-reduced-motion: no-preference) {
+    &:hover {
+      transform: scale(1.1);
+      transition: transform 250ms ease, filter 1250ms;
+      // This is so ugly. :)
+      filter: sepia(20%);
+    }
+  }
 `;
 
 const Row = styled.div`
