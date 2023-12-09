@@ -231,6 +231,8 @@ const NavLink = styled.div`
     font-weight: ${WEIGHTS.bold};
   }
 
+  // In the video, Josh made each of these text links their own component
+
   &:hover #topLink {
     transform: translateY(-100%);
     transition: transform 150ms ease;
