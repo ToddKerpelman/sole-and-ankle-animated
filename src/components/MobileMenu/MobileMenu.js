@@ -37,24 +37,70 @@ const MobileMenu = ({ isOpen, onDismiss }) => {
 };
 
 const Overlay = styled(DialogOverlay)`
+  @keyframes fadein {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   background: var(--color-backdrop);
+  opacity: 1.0;
   display: flex;
   justify-content: flex-end;
+  animation: fadein .2s ease-in-out backwards;
+ 
 `;
 
 const Content = styled(DialogContent)`
+
+  @keyframes slidein {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(0%);
+    }
+  }
+
   background: white;
   width: 300px;
   height: 100%;
   padding: 24px 32px;
   display: flex;
   flex-direction: column;
+  animation-delay: 0.2s;
+  animation-duration: 0.35s;
+  animation-timing-function: cubic-bezier(0,.4,.65,.99);
+  animation-fill-mode: backwards;
+  animation-name: slidein;
+
+  // Children
+  > * + * {
+    @keyframes fadein {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+    animation-delay: 0.4s;
+    animation-duration: 0.2s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: backwards;
+    animation-name: fadein;
+  }
+
 `;
+
+
 
 const CloseButton = styled(UnstyledButton)`
   position: absolute;
