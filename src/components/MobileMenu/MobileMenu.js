@@ -1,13 +1,13 @@
 /* eslint-disable no-unused-vars */
-import React from 'react';
-import styled from 'styled-components/macro';
-import { DialogOverlay, DialogContent } from '@reach/dialog';
+import React from "react";
+import styled from "styled-components/macro";
+import { DialogOverlay, DialogContent } from "@reach/dialog";
 
-import { QUERIES, WEIGHTS } from '../../constants';
+import { QUERIES, WEIGHTS } from "../../constants";
 
-import UnstyledButton from '../UnstyledButton';
-import Icon from '../Icon';
-import VisuallyHidden from '../VisuallyHidden';
+import UnstyledButton from "../UnstyledButton";
+import Icon from "../Icon";
+import VisuallyHidden from "../VisuallyHidden";
 
 const MobileMenu = ({ isOpen, onDismiss }) => {
   return (
@@ -18,13 +18,25 @@ const MobileMenu = ({ isOpen, onDismiss }) => {
           <VisuallyHidden>Dismiss menu</VisuallyHidden>
         </CloseButton>
         <Filler />
-        <Nav >
-          <NavLink href="/sale" style={{"--delay-bit": "400ms"}}>Sale</NavLink>
-          <NavLink href="/new" style={{"--delay-bit": "450ms"}}>New&nbsp;Releases</NavLink>
-          <NavLink href="/men" style={{"--delay-bit": "500ms"}}>Men</NavLink>
-          <NavLink href="/women"style={{"--delay-bit": "550ms"}}>Women</NavLink>
-          <NavLink href="/kids"style={{"--delay-bit": "600ms"}}>Kids</NavLink>
-          <NavLink href="/collections" style={{"--delay-bit": "650ms"}}>Collections</NavLink>
+        <Nav>
+          <NavLink href="/sale" style={{ "--delay-bit": "400ms" }}>
+            Sale
+          </NavLink>
+          <NavLink href="/new" style={{ "--delay-bit": "450ms" }}>
+            New&nbsp;Releases
+          </NavLink>
+          <NavLink href="/men" style={{ "--delay-bit": "500ms" }}>
+            Men
+          </NavLink>
+          <NavLink href="/women" style={{ "--delay-bit": "550ms" }}>
+            Women
+          </NavLink>
+          <NavLink href="/kids" style={{ "--delay-bit": "600ms" }}>
+            Kids
+          </NavLink>
+          <NavLink href="/collections" style={{ "--delay-bit": "650ms" }}>
+            Collections
+          </NavLink>
         </Nav>
         <Footer>
           <SubLink href="/terms">Terms and Conditions</SubLink>
@@ -37,23 +49,20 @@ const MobileMenu = ({ isOpen, onDismiss }) => {
 };
 
 const Overlay = styled(DialogOverlay)`
-
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   background: var(--color-backdrop);
-  opacity: 1.0;
+  opacity: 1;
   display: flex;
   justify-content: flex-end;
-  animation: fadein .2s ease-in-out backwards;
+  animation: fadein 0.2s ease-in-out backwards;
   perspective: 3500px;
- 
 `;
 
 const Content = styled(DialogContent)`
-
   @keyframes slidein {
     0% {
       transform: translateX(100%);
@@ -80,17 +89,11 @@ const Content = styled(DialogContent)`
   flex-direction: column;
   transform-origin: 100% 5%;
   animation-delay: 0.2s;
-  animation-duration: .35s;
-  animation-timing-function:linear;
+  animation-duration: 0.35s;
+  animation-timing-function: linear;
   animation-fill-mode: backwards;
   animation-name: door-open;
-
-
-
-
 `;
-
-
 
 const CloseButton = styled(UnstyledButton)`
   position: absolute;
@@ -118,19 +121,19 @@ const NavLink = styled.a`
     color: var(--color-secondary);
   }
 
-    @keyframes fadein {
-      0% {
-        opacity: 0;
-      }
-      100% {
-        opacity: 1;
-      }
+  @keyframes fadein {
+    0% {
+      opacity: 0;
     }
-    animation-delay: var(--delay-bit);
-    animation-duration: 0.2s;
-    animation-timing-function: ease-in-out;
-    animation-fill-mode: backwards;
-    animation-name: fadein;  
+    100% {
+      opacity: 1;
+    }
+  }
+  animation-delay: var(--delay-bit);
+  animation-duration: 0.2s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: backwards;
+  animation-name: fadein;
 `;
 
 const Filler = styled.div`
